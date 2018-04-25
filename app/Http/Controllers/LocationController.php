@@ -35,9 +35,9 @@ class LocationController extends Controller{
     public function find(Request $request){
 
 
-        $location = $this->location->getLocation($request->all());
-
         $venues = [];
+
+        $location = $this->location->getLocation($request->all());
 
 
         if($location){
@@ -46,37 +46,32 @@ class LocationController extends Controller{
 
             return View('location.list',compact('venues'));
 
-        }else{
+        }
 
-            try {
+        try {
 
-                $venues = Larasquare::venues(['near' => $request['location']]);
-            }
-            catch (\Exception $e) {
-
-                return View('location.list',compact('venues'))->with('message','No results found!');
-
-            }
-
-            //Save location
-            $location = $this->location->save($request->all());
-
-
-
-
-
-
-
-            //Save venues location
-            $this->venue->save($venues,$location->id);
-
-            $venues = $this->venue->getVenuesByLocation($location->id);
-
-
-            return View('location.list',compact('venues'));
-
+            $venues = Larasquare::venues(['near' => $request['location']]);
 
         }
+        catch (\Exception $e) {
+
+            return View('location.list',compact('venues'))->with('message','No results found!');
+
+        }
+
+
+        $location = $this->location->save($request->all());
+
+
+        $this->venue->save($venues,$location->id);
+
+        $venues = $this->venue->getVenuesByLocation($location->id);
+
+
+        return View('location.list',compact('venues'));
+
+
+
 
 
 
@@ -95,10 +90,11 @@ class LocationController extends Controller{
 
                "lat"     => $venue->lat,
                'lon'     => $venue->lon,
+               'text'    => $venue->name,
+
 
            ];
 
-           //Check images via API
            $result = Flickr::request('flickr.photos.search',$params);
 
            if($result){
