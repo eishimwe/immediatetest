@@ -148,6 +148,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Iivannov\Larasquare\Provider\LarasquareServiceProvider::class,
+        JeroenG\Flickr\FlickrServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -213,6 +215,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Larasquare' => Iivannov\Larasquare\Facade\Larasquare::class,
+        'Flickr' => JeroenG\Flickr\FlickrLaravelFacade::class,
 
     ],
 

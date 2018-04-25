@@ -35,4 +35,11 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'foursquare' => [
+        'clientId'     => env('FOURSQUARE_CLIENT_ID'),
+        'clientSecret' => env('FOURSQUARE_SECRET_ID'),
+        'apiUrl'       => env('FOURSQUARE_API_URL'),
+        'version '     => env('FOURSQUARE_SUPPORTED_VERSION'),
+    ]
+
 ];
